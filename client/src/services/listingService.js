@@ -1,11 +1,11 @@
 import $ from 'jquery';
 const ImgurConfig = require('./config.js');
 
-export function createListingService(data, userId, callback){
+export const createListingService = (data, userId, callback) => {
   let formData = new FormData();
-  formData.append("image", data.image)
+  formData.append('image', data.image);
   $.ajax({
-    type:'POST',
+    type: 'POST',
     url: 'https://api.imgur.com/3/image',
     data: formData,
     crossDomain: true,
@@ -17,30 +17,30 @@ export function createListingService(data, userId, callback){
     },
     mimeType: 'multipart/form-data',
   })
-  .then(response=>{
-    response = JSON.parse(response)
-    $.post('/listing', {
-      title: data.title,
-      desc: data.desc,
-      loc: data.loc,
-      userId: userId,
-      image: response.data.link
-    })
-    .then(serverRes=>{
-      callback(serverRes);
+    .then(response=>{
+      response = JSON.parse(response);
+      $.post('/listing', {
+        title: data.title,
+        desc: data.desc,
+        loc: data.loc,
+        userId: userId,
+        image: response.data.link
+      })
+        .then(serverRes=>{
+          callback(serverRes);
+        })
+        .catch(error=>{
+          callback(error);
+        });
     })
     .catch(error=>{
       callback(error);
-    })
-  })
-  .catch(error=>{
-    callback(error);
-  })
-}
+    });
+};
 
-export function listingInterestService(id, user, claimed ,callback){
+export const listingInterestService = (id, user, claimed, callback) => {
   $.ajax({
-    type:'PUT',
+    type: 'PUT',
     url: '/interest',
     data: {
       id: id,
@@ -48,63 +48,61 @@ export function listingInterestService(id, user, claimed ,callback){
       userId: user,
     },
   })
-  .then(response=>{
-    callback(response);
-  })
-  .catch(error=>{
-    callback(error);
-  })
-}
+    .then(response=>{
+      callback(response);
+    })
+    .catch(error=>{
+      callback(error);
+    });
+};
 
-export function deleteListingService(id, callback){
+export const deleteListingService = (id, callback) => {
   $.ajax({
-    type:'DELETE',
+    type: 'DELETE',
     url: `/listing/${id}`,
   })
-  .then(response=>{
-    callback(response);
-  })
-  .catch(error=>{
-    callback(error);
-  })
-}
+    .then(response=>{
+      callback(response);
+    })
+    .catch(error=>{
+      callback(error);
+    });
+};
 
-export function updateListingService(listing, oldListing, callback){
-  console.log(listing)
-  console.log(oldListing)
-  if(listing.image === oldListing.image){
-    updateListing(listing, oldListing, callback)
+export const updateListingService = (listing, oldListing, callback) => {
+  if (listing.image === oldListing.image) {
+    updateListing(listing, oldListing, callback);
   } else {
-  let formData = new FormData();
-  formData.append("image", listing.image)
-  console.log(formData);
-  $.ajax({
-    type:'POST',
-    url: 'https://api.imgur.com/3/image',
-    data: formData,
-    crossDomain: true,
-    processData: false,
-    contentType: false,
-    headers: {
-      Authorization: 'Client-ID ' + ImgurConfig.IMGUR_API_ID,
-      Accept: 'application/json'
-    },
-    mimeType: 'multipart/form-data',
-  })
-  .then(response=>{
-    response = JSON.parse(response);
-    listing.image = response.data.link;
-    updateListing(listing, oldListing, callback)
-  })
-  .catch(error=>{
-    callback(error);
-  })
+    let formData = new FormData();
+    formData.append('image', listing.image);
+    console.log(formData);
+    $.ajax({
+      type: 'POST',
+      url: 'https://api.imgur.com/3/image',
+      data: formData,
+      crossDomain: true,
+      processData: false,
+      contentType: false,
+      headers: {
+        Authorization: 'Client-ID ' + ImgurConfig.IMGUR_API_ID,
+        Accept: 'application/json'
+      },
+      mimeType: 'multipart/form-data',
+    })
+      .then(response=>{
+        response = JSON.parse(response);
+        listing.image = response.data.link;
+        updateListing(listing, oldListing, callback);
+      })
+      .catch(error=>{
+        callback(error);
+      });
   }
-}
+};
 
-function updateListing(listing, oldListing, callback) {
+const updateListing = (listing, oldListing, callback) => {
   $.ajax({
-    type:'PUT',
+    type: 'PUT',
     url: `/listing/${oldListing._id}`,
     data: {
       title: listing.title,
@@ -113,24 +111,23 @@ function updateListing(listing, oldListing, callback) {
       image: listing.image
     }
   })
-  .then(response=>{
-    callback(response);
-  })
-  .catch(error=>{
-    callback(error);
-  })
-}
+    .then(response=>{
+      callback(response);
+    })
+    .catch(error=>{
+      callback(error);
+    });
+};
 
-export function givawayListingService(input, callback){
-  console.log(input.receiver)
+export const givawayListingService = (input, callback) => {
   $.post('/listing/give', {
     receiver: input.receiver,
     listing: input.listing
   })
-  .then(response=>{
-    callback(response);
-  })
-  .catch(error=>{
-    callback(error);
-  })
-}
+    .then(response=>{
+      callback(response);
+    })
+    .catch(error=>{
+      callback(error);
+    });
+};

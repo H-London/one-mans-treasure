@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Header, Icon, Divider,
-   Container, Modal, Input, Form, TextArea } from 'semantic-ui-react'
+   Container, Modal, Input, Form, TextArea, Message } from 'semantic-ui-react'
 import { updateUserService } from '../services/userService.js'
 
 class Profile extends React.Component{
@@ -8,10 +8,10 @@ class Profile extends React.Component{
     super(props);
     this.state = {
       userInfo : {
-        UserId: this.props.userId,
-        Username: this.props.user,
-        Password: this.props.password,
-        OriginalPw: this.props.password
+        UserId: this.props.user._id,
+        Username: this.props.user.username,
+        Password: this.props.user.password,
+        OriginalPw: this.props.user.password
       },
       usernameEdit: false,
       passwordEdit: false,
@@ -95,33 +95,75 @@ class Profile extends React.Component{
     }
   }
 
+  renderGeneralInfo() {
+    return (
+      <span>
+        <h3 className="ui">General</h3>
+        <div textalign="center">Created: {(new Date(this.props.user.created_at)).toLocaleDateString('en-US')}</div>
+        <Divider/>
+        <div textalign="center">Admin Rights: {this.props.user.isAdmin ? 'Yes' : 'No'}</div>
+        <Divider/>
+        <div textalign="center">Karma: {this.props.user.karma}</div>
+      </span>
+    );
+  }
+
+  renderUserComments() {
+    return (
+      <div>
+        <h3 className="ui">Current Listings</h3>
+        {
+          this.props.user.my_listings.map((listing) => {
+            return (
+              <Message key={ listing._id } className={ listing.isAvailable ? 'positive' : 'negative' }>
+                <Header>
+                  { listing.title }
+                </Header>
+                <Divider />
+                <span>
+                  { listing.description }
+                </span>
+              </Message>
+            );
+          })
+        }
+      </div>
+    );
+  }
+
   submit(){
     updateUserService(this.state.userInfo);
     this.close();
   }
 
   render(){
-    return(
-    <Modal open={this.state.isOpen} trigger={<div className="ui item" onClick={this.open.bind(this)}><Icon className='edit outline' />
-        Edit Profile</div>} basic closeOnDimmerClick={false}>
-      <Modal.Header>Your Profile</Modal.Header>
-      <Divider/>
-      <Container textalign="center"> Username {this.renderUsernameForm()}
-      <Divider/>
-      <div textalign="center"> Password {this.renderPasswordForm()}</div>
-      </Container>
-      <Divider/>
-      <Modal.Actions>
-        <Button type="button" onClick={this.close.bind(this)} basic color='red'>
-          <Icon className='remove'/>Cancel
-        </Button>
-        <Button primary type="button" onClick={this.submit.bind(this)} basic color='green'>
-          <Icon className='check'/>Done
-        </Button>
-      </Modal.Actions>
-    </Modal>
-    )
+    return (
+      <Modal open={this.state.isOpen} trigger={<div className="ui item" onClick={this.open.bind(this)}><Icon className='edit outline' />
+        Your Profile</div>} basic closeOnDimmerClick={false}>
+        <Modal.Header>Your Profile</Modal.Header>
+        <Divider/>
+        <Container textalign="center"> {this.renderGeneralInfo()}
+        </Container>
+        <Divider />
+        <Container textalign="center"> Username {this.renderUsernameForm()}
+          <Divider/>
+          <div textalign="center"> Password {this.renderPasswordForm()}</div>
+        </Container>
+        <Divider />
+        <Container textalign="center"> {this.renderUserComments()}
+        </Container>
+        <Divider />
+        <Modal.Actions>
+          <Button type="button" onClick={this.close.bind(this)} basic color='red'>
+            <Icon className='remove'/>Cancel
+          </Button>
+          <Button primary type="button" onClick={this.submit.bind(this)} basic color='green'>
+            <Icon className='check'/>Done
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    );
   }
 }
 
-export default Profile
+export default Profile;

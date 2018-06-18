@@ -22,18 +22,20 @@ and Imgur API for image hosting.  You will need API keys from
 https://developers.google.com/maps/documentation/embed/get-api-key
 and https://apidocs.imgur.com/ in order for them to work.
 
-#### ~~Bugs~~ Features:
-  1. Currently you can't givaway your item to the first user who claimed it.
-  2. All signup validations are currently done in the background through console log. (*make sure password is 8 digits long or signup would stay in the same page.)
-  3. Search Bar doesn't work.
-  4. If you encounter additional bugs, feel free to ask any of us except for Feng.  
-  Because his code is perfect and never buggy so he wouldn't know what you're talking about.
+> Place the Google Maps API key in the client/dist/index.html file.
+> Replace both of the ImgurConfig.IMGUR_API_ID variables in the client/src/services/listingServices.js
 
+
+
+#### Bugs:
+  1. Currently you can't givaway your item to the first user who claimed it.
+  2. Longer comments do not word-wrap.
+  3. Listings do not automatically populate the profile. (Must log out and log back in).
+  
+  
 #### Semantic-UI
 Both Semantic-UI and Semantic-UI-React are use.  
-Semantic-UI-React will be installed with ``npm install``; however,
-you will have to manually import regular Semantic-UI's css and js files
-to get everything to render correctly.
+Semantic-UI-React will be installed with ``npm install``.
 
 ## Getting Started
 To install all dependencies
@@ -64,7 +66,7 @@ npm run start
 Currently there is no test for this application.
 
 ## Authors
-Feng Chen / 
-Donny Rojas / 
-Samuel Shih / 
-Zack Carlson
+John Webb/
+Mealear Kheiv/ 
+Erwin Carrasquilla/ 
+Heshie London

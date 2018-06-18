@@ -1,32 +1,32 @@
 import $ from 'jquery';
 
-export function signupService({username, password}, callback){
+export const signupService = ({username, password}, callback) => {
   $.post('/signup', {
     user: username, pw: password, created_at: Date.now()
   })
-  .then(response=>{
-    callback(response);
-  })
-  .catch(error=>{
-    callback(error);
-  })
-}
+    .then(response=>{
+      callback(response);
+    })
+    .catch(error=>{
+      callback(error);
+    });
+};
 
-export function loginService({username, password}, callback){
+export const loginService = ({username, password}, callback) => {
   $.post('/login', {
     user: username, pw: password
   })
-  .then(response=>{
-    callback(response);
-  })
-  .catch(error=>{
-    callback(error);
-  })
-}
+    .then(response=>{
+      callback(response);
+    })
+    .catch(error=>{
+      callback(error);
+    });
+};
 
-export function updateUserService({UserId, Username, Password, OriginalPw}, callback) {
+export const updateUserService = ({UserId, Username, Password, OriginalPw}, callback) => {
   $.ajax({
-    type:'PUT',
+    type: 'PUT',
     url: `/account/${UserId}`,
     data: {
       user: Username,
@@ -34,11 +34,10 @@ export function updateUserService({UserId, Username, Password, OriginalPw}, call
       originalPw: OriginalPw
     }
   })
-  .then(response=>{
-    callback(response);
-  })
-  .catch(error=>{
-    callback(error);
-  })
-}
-
+    .then(response=>{
+      callback(response);
+    })
+    .catch(error=>{
+      callback(error);
+    });
+};

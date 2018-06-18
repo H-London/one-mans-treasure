@@ -42,8 +42,21 @@ class ListingCreator extends React.Component{
   }
 
   submit(){
-    this.props.createListing(this.state.listing, this.props.user._id);
+    this.props.createListing(this.state.listing, this.props.user._id, () => {
+      this.clearEntry();
+    });
     this.close();
+  }
+
+  clearEntry(){
+    this.setState({
+      listing : {
+        title: '',
+        image: '',
+        desc: '',
+        loc: '',
+      }
+    })
   }
 
   render(){

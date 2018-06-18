@@ -10,23 +10,22 @@ module.exports = {
   },
 
   giveListing: function(data) {
-    // console.log(data);
-    let receiverId =  data.receiver;
+    let receiverId = data.receiver;
     let listingId = data.listing;
     return new Promise((resolve, reject) => {
       userDb.claimItem(receiverId, listingId)
-      .then(dataOne => {
-        listingDb.markClaimed(listingId)
-          .then(dataTwo => {
-            resolve(dataTwo)
-          })
-          .catch(error => {
-            reject(error);
-          })
-      })
-      .catch(error => {
-        console.log('item not placed in claim array')
-      })
-    })
+        .then(dataOne => {
+          listingDb.markClaimed(listingId)
+            .then(dataTwo => {
+              resolve(dataTwo);
+            })
+            .catch(error => {
+              reject(error);
+            });
+        })
+        .catch(error => {
+          console.log('item not placed in claim array');
+        });
+    });
   }
-}
+};

@@ -7,12 +7,12 @@ import Profile from './Profile.jsx';
 
 class NavDropdown extends Component {
   constructor(props){
-    super(props);  
+    super(props);
   }
 
   handleItemClick(e, { name }){
     this.setState({ activeItem: name })
-  } 
+  }
 
   logoutHandler(){
     this.props.logout();
@@ -28,7 +28,7 @@ class NavDropdown extends Component {
 
           {this.props.session ? <Dropdown.Item>
             <MyListings listings={this.props.listings}
-            user={this.props.session.user} 
+            user={this.props.session.user}
             listingSelectHandler={this.props.listingSelectHandler.bind(this)}
             delete={this.props.delete.bind(this)} giveHandler={this.props.giveHandler.bind(this)}>
             </MyListings>
@@ -43,14 +43,12 @@ class NavDropdown extends Component {
 
           {this.props.session ? <Dropdown.Item>
             <Profile
-            user={this.props.session.user.username}
-            userId={this.props.session.user._id}
-            password={this.props.session.user.password}
+              user={this.props.session.user}
             />
           </Dropdown.Item> : false}
 
           <DropdownDivider/>
-          {this.props.session ? <Dropdown.Item> 
+          {this.props.session ? <Dropdown.Item>
             <div className="ui item" onClick={this.logoutHandler.bind(this)}>
             <Icon name="log out"/>Logout</div>
           </Dropdown.Item> : false}

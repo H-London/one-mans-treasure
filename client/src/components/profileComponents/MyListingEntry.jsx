@@ -54,7 +54,7 @@ class MyListingEntry extends React.Component{
         <List.Content floated='right'>
           <Button inverted onClick={this.handleRenderGivaway.bind(this)} color='blue'><Icon name='gift'/> Give</Button>
           <Button inverted onClick={this.handleEdit.bind(this)}><Icon name='edit'/> Edit</Button>
-          <Button inverted color='red' onClick={()=>{if(confirm('Are you sure you want to delete this listing?')){this.props.delete(this.props.listing)}}}><Icon name='trash alternate outline'/> Delete</Button>
+          <Button inverted color='red' onClick={()=>{if(confirm('Are you sure you want to delete this listing?')){this.props.delete(this.props.listing)}}}><Icon name='trash'/> Delete</Button>
         </List.Content>
         <Image avatar src={this.props.listing.photo} />
         <List.Content>
@@ -73,7 +73,7 @@ class MyListingEntry extends React.Component{
             )}
           </select>
           <Button inverted onClick={this.handleCloseGivaway.bind(this)}> Cancel</Button>
-          <Button color='blue' inverted onClick={()=>{if(confirm(`Are you sure you want to give it to ${this.state.user}?`)){this.handleGivaway(this.state.data)}}}>
+          <Button color='blue' inverted onClick={()=>{if(confirm(`Are you sure you want to give this item away?`)){this.handleGivaway(this.state.data)}}}>
           <Icon name='gift'/> Givaway</Button>
         </List.Item>
       )

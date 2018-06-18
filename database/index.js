@@ -5,7 +5,7 @@ mongoose.connect(uriString);
 let db = mongoose.connection;
 db.once('open', ()=>{
   console.log('greenfield database connected');
-})
+});
 
 
 module.exports = db;

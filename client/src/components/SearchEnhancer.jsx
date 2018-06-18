@@ -84,14 +84,14 @@ class SearchEnhancer extends React.Component{
             name='claimsDesc'
             active={sortType === 'claimsDesc'}
             onClick={this.handleSortChange.bind(this)}>
-            Highest Claims
+            Most Claimed
           </Menu.Item>
 
           <Menu.Item
             name='claimsAsc'
             active={sortType === 'claimsAsc'}
             onClick={this.handleSortChange.bind(this)}>
-            Lowest Claims
+            Least Claimed
           </Menu.Item>
 
           <Menu.Item
