@@ -1,72 +1,42 @@
 # One Man's Treasure
-One Man's Treasure is a platform for unwanted items where a user can display an item they don't want to dispose of but would like nothing in return for it. Depending on another users claims and criteria, they may receive the item.
 
-## Notes before getting started
-#### Redux
-  Several components are using redux as state container.  
-  States that are mapped to props using redux are:
-  * Listings, 
-  * Claimed Listings,
-  * Users who claimed the listing
+Community item redistribution platform enabling users to list unwanted household goods and coordinate peer-to-peer claims without monetary exchange.
 
-#### Redux-Promise
-  Redux-Promise is an amazing and super light weight redux middleware that turns your spaghetti ajax call into 1 line of code.  
-  * Documentation:
-  https://github.com/redux-utilities/redux-promise
-  https://www.npmjs.com/package/redux-promise
-  If someone tells you Redux-thunk is better, they're wrong!.
+*(2018 engineering archive)*
 
-#### API Keys
-This project utilizes Google API for location search as well as map display, 
-and Imgur API for image hosting.  You will need API keys from
-https://developers.google.com/maps/documentation/embed/get-api-key
-and https://apidocs.imgur.com/ in order for them to work.
+## Stack
 
-> Place the Google Maps API key in the client/dist/index.html file.
-> Replace both of the ImgurConfig.IMGUR_API_ID variables in the client/src/services/listingServices.js
+- Frontend: React, Redux, Redux-Promise, Semantic-UI, Webpack, Babel (ES6+)
+- Backend and Database: Node.js, Express, MongoDB
+- Third-Party APIs: Google Maps API (geocoding and mapping), Imgur API (asset hosting)
 
+## Environment Configuration
 
+Create a `.env` file in the project root with the following variables before starting the server:
 
-#### Bugs:
-  1. Currently you can't givaway your item to the first user who claimed it.
-  2. Longer comments do not word-wrap.
-  3. Listings do not automatically populate the profile. (Must log out and log back in).
-  
-  
-#### Semantic-UI
-Both Semantic-UI and Semantic-UI-React are use.  
-Semantic-UI-React will be installed with ``npm install``.
+- `GOOGLE_MAPS_API_KEY` - Google Maps platform API key
+- `IMGUR_CLIENT_ID` - Imgur application client ID
 
 ## Getting Started
-To install all dependencies
-```
+
+Install dependencies:
+
+```sh
 npm install
 ```
 
-To run transpiler
-```
+Compile client bundle in watch mode:
+
+```sh
 npm run react-dev
 ```
 
-To run local server
-```
+Start Express service:
+
+```sh
 npm run start
 ```
 
-## Built With
-* Reactjs `Main framework`
-* Semantic-UI `CSS framework`
-* Redux `State Container`
-* Nodejs `Run-time environment` 
-* MongoDB `Database`
-* Webpack `Build tool`
-* Babel `ECMA6 compiling`
+## Contributors
 
-## Running the tests
-Currently there is no test for this application.
-
-## Authors
-John Webb/
-Mealear Kheiv/ 
-Erwin Carrasquilla/ 
-Heshie London
+Hesh London | John Webb | Mealear Kheiv | Erwin Carrasquilla
